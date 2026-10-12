@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Study Guide | Class 8 Chapters 1 and 2</title>
+<style>
+:root{
+  --paper:#FAF8F3; --ink:#1E2A38; --teal:#1B6B5F; --teal-soft:#E3F0ED;
+  --saffron:#E8A33D; --muted:#5F6B7A; --line:#E3DED3; --card:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:16px}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+
+header{background:var(--ink);color:#fff;padding:32px 0 0}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:#B8C2CE;margin:0 0 22px;font-size:.95rem}
+.chapter-tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid #34445A}
+.chapter-tabs button{background:none;border:0;color:#B8C2CE;padding:12px 16px;font:inherit;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.chapter-tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--saffron)}
+.chapter-tabs button:hover{color:#fff}
+
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:20px 0}
+.views{display:flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px}
+.views button{border:0;background:none;padding:8px 14px;border-radius:7px;font:inherit;color:var(--muted);cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--teal);color:#fff}
+.search{flex:1;min-width:220px;max-width:340px}
+.search input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+
+.chapter-title{margin:8px 0 4px;font-family:Georgia,serif;font-weight:400;font-size:1.7rem}
+.pages{color:var(--muted);margin:0 0 18px;font-size:.92rem}
+
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:20px 24px;margin:0 0 18px}
+.card h2{font-size:1.1rem;margin:0 0 10px;color:var(--teal);font-weight:650}
+.card h3{font-size:1rem;margin:16px 0 6px}
+ul,ol{margin:0;padding-left:22px}
+li{margin:4px 0}
+.points{border-left-color:var(--saffron)}
+.points h2{color:#9A6410}
+.tag{display:inline-block;background:var(--teal-soft);color:var(--teal);font-size:.8rem;padding:2px 9px;border-radius:999px;margin-right:6px}
+
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;padding:0}
+summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;display:flex;gap:12px;align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";flex:0 0 26px;height:26px;border-radius:50%;background:var(--saffron);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;margin-top:2px}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .answer{padding:14px 18px 16px 56px;color:#2F3B4A}
+details .answer p{margin:0 0 8px}
+
+.ex-q{font-weight:600;margin:14px 0 6px}
+.ans{background:var(--teal-soft);border-radius:8px;padding:10px 14px;margin:6px 0 4px;color:#173E38}
+.hidden{display:none !important}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+footer{color:var(--muted);text-align:center;font-size:.85rem;padding:30px 0 40px}
+
+@media (max-width:600px){
+  .card{padding:16px 16px}
+  details .answer{padding-left:18px}
+  .search{max-width:none;width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>AI Study Guide</h1>
+    <p class="sub">Class 8 · Computational Thinking and Artificial Intelligence (CBSE) · Chapters 1 and 2</p>
+    <nav class="chapter-tabs" role="tablist" aria-label="Chapters">
+      <button role="tab" id="tab-ch1" aria-controls="content" aria-selected="true" data-chapter="ch1">Ch 1 · AI Project Lifecycle</button>
+      <button role="tab" id="tab-ch2" aria-controls="content" aria-selected="false" data-chapter="ch2">Ch 2 · Deeper Dive into AI Applications</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="content">
+  <div class="toolbar">
+    <div class="views" role="group" aria-label="Choose view">
+      <button data-view="notes" aria-pressed="true">Notes</button>
+      <button data-view="qa" aria-pressed="false">Q &amp; A</button>
+      <button data-view="exercises" aria-pressed="false">Exercise solutions</button>
+    </div>
+    <div class="search">
+      <input type="search" id="filter" placeholder="Search this chapter..." aria-label="Search this chapter">
+    </div>
+  </div>
+  <h2 class="chapter-title" id="chapter-title"></h2>
+  <p class="pages" id="chapter-pages"></p>
+  <div id="view"></div>
+</main>
+
+<footer>Built from the CBSE Class 8 Computational Thinking and AI Student Handbook (First Edition, 2026).</footer>
+
+<script>
+const DATA = {
+  ch1: {
+    title: "Chapter 1: AI Project Lifecycle",
+    pages: "Student Handbook pages 37 to 45",
+    notes: [
+      { h: "What is AI?", items: [
+        "AI is technology that gives machines and computers the ability to do work that normally requires human intelligence.",
+        "AI can analyse data, recognise patterns, learn from experience, predict trends and make decisions.",
+        "AI systems learn, adapt and improve their performance over time.",
+        "AI works correctly only when it is supported by accurate and reliable data."
+      ]},
+      { h: "How AI learns", items: [
+        "AI learns from data by analysing large datasets and recognising patterns.",
+        "Voice assistants, language translators and recommendation systems seem intelligent because they have access to massive data and keep training themselves."
+      ]},
+      { h: "AI project and lifecycle", items: [
+        "An AI project is a step-by-step process of building a smart system that solves a real-world problem by learning from past data.",
+        "Projects have specific goals, such as recommending products or detecting spam emails.",
+        "The AI project lifecycle is an iterative, six-stage framework for developing, deploying and maintaining AI tools."
+      ]},
+      { h: "The six stages", ordered: true, items: [
+        "<b>Define the problem:</b> state the goal clearly and decide whether AI is really needed. Some problems can be solved with simple automation.",
+        "<b>Data collection and preparation:</b> collect data from sensors, surveys, websites and historical records. Clean it by removing errors, duplicates and irrelevant data, filling missing values, formatting it and labelling it (for example, Spam/Not Spam).",
+        "<b>Model development and training:</b> create an AI model, which works like the brain of the system, and train it on data so it learns patterns.",
+        "<b>Model evaluation and refinement:</b> test the model on a test dataset it has not seen before and measure accuracy. If results are poor, add more data, remove incorrect data, change settings or retrain.",
+        "<b>Model deployment:</b> put the model into real-world use, where it takes input, makes predictions and helps users. Examples: spam detection, shopping recommendations, voice assistants, face unlock.",
+        "<b>Monitoring and maintenance:</b> monitor performance and update the model. Accuracy can drop when study patterns, exam patterns or question types change. Fix it by adding new data, retraining, correcting errors and improving performance."
+      ]},
+      { h: "Accuracy and testing", items: [
+        "Accuracy is the percentage of predictions that are correct. Example: 7 correct out of 10 gives 70% accuracy.",
+        "A test dataset is data not used during training. It shows how well the model works on new, unseen data.",
+        "Low accuracy (for example, 2 out of 10 = 20%) means the model needs refinement."
+      ]},
+      { h: "Automation vs AI", items: [
+        "<b>Automation</b> follows fixed rules set in advance. It does not learn, adapt or decide. Example: a car wash that sprays water for a fixed time.",
+        "<b>AI</b> uses data to learn and make decisions. Example: a car wash whose cameras detect dirt level and size, then adjust water, soap and brush speed.",
+        "Traffic signals and irrigation can be timer-based (automation) or AI-based (adjusting to traffic density, soil moisture and weather)."
+      ]},
+      { h: "Key terms", items: [
+        "<b>Garbage In, Garbage Out:</b> bad data produces a bad AI.",
+        "<b>Test dataset:</b> data used only to check the trained model.",
+        "<b>Accuracy:</b> percentage of correct predictions.",
+        "<b>Model refinement:</b> improving a model when its results are not satisfactory.",
+        "<b>Monitoring:</b> continuous checking of a deployed model.",
+        "<b>Maintenance:</b> updating a model to keep it accurate over time."
+      ]}
+    ],
+    points: [
+      "AI systems learn from data.",
+      "A clear problem must be defined before building an AI system.",
+      "AI models identify patterns in data.",
+      "AI projects follow a step-by-step lifecycle.",
+      "AI systems improve over time with more data."
+    ],
+    qa: [
+      { q: "What is Artificial Intelligence?", a: "AI is technology that gives machines and computers the ability to do work that normally requires human intelligence, such as analysing data, finding patterns, predicting trends, solving problems and making decisions." },
+      { q: "What four abilities do AI systems have?", a: "They can analyse data, recognise patterns, learn from experience, and make predictions or decisions." },
+      { q: "How does AI learn?", a: "AI learns from data. Models analyse huge datasets, recognise patterns and improve with more training." },
+      { q: "What is an AI project?", a: "An AI project is a step-by-step process of developing a smart system that solves a real-world problem by learning from past data." },
+      { q: "What is the AI project lifecycle?", a: "It is an iterative, six-stage framework for developing, deploying and maintaining AI: define the problem, collect and prepare data, develop and train the model, evaluate and refine it, deploy it, then monitor and maintain it." },
+      { q: "What is the difference between automation and AI?", a: "Automation follows fixed rules and does not learn or adapt, such as a timer-based car wash. AI uses data to learn and decide, such as a car wash that adjusts to the dirt it detects." },
+      { q: "Why is defining the problem the most important first step?", a: "It sets the goal for the whole project and decides what data is needed, which model to build and how success is measured. It also shows whether AI is needed at all." },
+      { q: "What happens in data collection and preparation?", a: "Relevant data is collected from sensors, surveys, websites and records, then cleaned by removing errors, duplicates and irrelevant data, filling missing values, formatting it and labelling it." },
+      { q: "What does 'Garbage In, Garbage Out' mean?", a: "If the data is bad, the AI will be bad. The quality of the data decides the quality of the model." },
+      { q: "What happens in model development and training?", a: "An AI model is created and trained on data so it learns the relationship between inputs (such as attendance and study hours) and the result (such as above or below 75% marks)." },
+      { q: "What happens in model evaluation?", a: "The trained model is tested on a test dataset it has not seen before. Its accuracy is measured, and if it is poor, the model is refined by adding data, removing errors, changing settings or retraining." },
+      { q: "What is accuracy?", a: "Accuracy is the percentage of predictions that are correct. If a model predicts 7 out of 10 correctly, its accuracy is 70%." },
+      { q: "What is model deployment?", a: "Deployment means putting a tested model into real-world use, where it takes input data, makes predictions and helps users. Examples include spam detection and voice assistants." },
+      { q: "Why does an AI model need monitoring and maintenance?", a: "Monitoring checks whether the deployed model still works correctly. Accuracy can drop when patterns change, so the model is updated with new data, retrained and corrected." },
+      { q: "Give one real-life example of an AI project.", a: "A spam filter in an email app. It is trained on emails labelled as spam or not spam, learns the patterns of spam, and classifies new emails." }
+    ],
+    exercises: [
+      { h: "A. Multiple choice", items: [
+        { q: "1. AI learns from:", a: "(c) Data" },
+        { q: "2. In spam detection, the AI problem is to:", a: "(d) Identify spam emails" },
+        { q: "3. The first stage of a project cycle is:", a: "(a) Defining the problem" },
+        { q: "4. If an AI model predicts 8 out of 10 spam emails correctly, its accuracy is:", a: "(c) 80%" },
+        { q: "5. An AI model improves because:", a: "(c) New data is added" }
+      ]},
+      { h: "B. Fill in the blanks", items: [
+        { q: "1. AI learns by finding ______ in data.", a: "patterns" },
+        { q: "2. An AI project follows a ______ cycle.", a: "lifecycle (project cycle)" },
+        { q: "3. Spam emails often contain suspicious ______.", a: "words or links" },
+        { q: "4. After testing, we ______ the system.", a: "evaluate (or refine)" },
+        { q: "5. AI cannot work without ______.", a: "data" }
+      ]},
+      { h: "C. Short answer questions", items: [
+        { q: "1. How does AI learn?", a: "AI analyses large datasets, recognises patterns and relationships, and improves its predictions as it sees more examples." },
+        { q: "2. Why is defining the problem important?", a: "It sets the goal, decides what data and model are needed, and shows whether AI is needed at all." },
+        { q: "3. What happens in the testing stage?", a: "The model is checked with a test dataset it has not seen before, its predictions are compared with the correct answers, and mistakes show where refinement is needed." },
+        { q: "4. What is meant by accuracy?", a: "The percentage of predictions that are correct. 8 correct out of 10 is 80%." },
+        { q: "5. Give one real-life example of an AI project.", a: "A spam filter in an email app that learns from labelled emails and classifies new ones." }
+      ]},
+      { h: "D. Think and apply", items: [
+        { q: "1. Fake news detection project: fill in the table.", a: "<b>Define the problem:</b> identify whether a news article is real or fake. <b>Collect data:</b> gather articles labelled real or fake from fact-checking sites and verified reports. <b>Test AI tools:</b> train a no-code text classifier on the labelled articles, then test it on new ones. <b>Reflect and improve:</b> note the articles it gets wrong, add more varied data, retrain and check accuracy." },
+        { q: "2. Predict delivery status for orders 05 and 06 using the rule (distance under 10 km, Clear weather, Low traffic, Experienced partner).", a: "Order 05 (8 km, Clear, Low, Experienced): <b>On Time</b>. Order 06 (18 km, Rainy, High, New): <b>Late</b>." }
+      ]}
+    ]
+  },
+
+  ch2: {
+    title: "Chapter 2: Deeper Dive into AI Applications",
+    pages: "Student Handbook pages 46 to 59",
+    notes: [
+      { h: "Overview", items: [
+        "AI makes life faster and more efficient, often without people noticing.",
+        "Phones understanding speech, games adjusting difficulty and emails sorted into spam all use AI.",
+        "The chapter covers four areas: environment, automation, healthcare and education."
+      ]},
+      { h: "Environment: plastic pollution", items: [
+        "Plastic does not biodegrade. It breaks down into microplastics that enter the food chain.",
+        "India generates nearly 3.5 million tonnes of plastic waste a year, and about half enters rivers and oceans.",
+        "AI analyses satellite images to find plastic dumps. DEST identified 70 dumps in Himachal Pradesh in 2023 this way."
+      ]},
+      { h: "Environment: air quality", items: [
+        "Pollution comes from vehicles, factories and crop stubble burning. It is severe in winter in many cities.",
+        "Poor air affects breathing, asthma, immunity and concentration, especially for children and the elderly.",
+        "AI combines pollution data with weather data to predict pollution. Authorities can cancel outdoor school activities, alert hospitals, restrict vehicles or warn farmers.",
+        "Ahmedabad launched India's first early warning system in 2017, which was not AI-based at first."
+      ]},
+      { h: "Environment: waste management", items: [
+        "Mixed waste makes recycling difficult. Landfills release gases, cause odours, catch fire and contaminate groundwater.",
+        "Pune Municipal Corporation's app lets citizens photograph garbage, and AI generates a work order for the nearest cleaning squad.",
+        "Indore uses AI sorting machines to separate plastic, metal and organic waste.",
+        "Smart bins monitor fill levels and optimise collection routes. Image recognition apps check whether items are recyclable."
+      ]},
+      { h: "Environment: wildlife loss", items: [
+        "Causes include habitat loss, poaching and human-wildlife conflict.",
+        "AI camera traps identify species and send real-time alerts. Trail Guard AI cameras are used in Indian tiger reserves.",
+        "The Forest Survey of India uses AI to detect deforestation and forest cover changes from annual satellite images."
+      ]},
+      { h: "Environment: soil degradation", items: [
+        "Causes include unsustainable farming, excessive chemical fertiliser, deforestation and industrial pollution.",
+        "Degraded soil is less productive and threatens food security. Burning crop residue also adds to air pollution.",
+        "AI analyses soil sensor data to recommend fertiliser, irrigation and crop rotation.",
+        "Bharat Vistaar, announced in the 2026 Union Budget, gives localised soil, weather, pest and expert advice in local languages.",
+        "The CROPIC app lets farmers photograph crops at different growth stages so their health can be tracked."
+      ]},
+      { h: "Healthcare", items: [
+        "India's healthcare system serves over 1.3 billion people, with a big gap between needs and resources.",
+        "<b>Medical image analysis:</b> AI reads X-rays, CT scans, MRIs and ultrasounds, sometimes spotting details human eyes miss. ICMR-validated tools screen chest X-rays for tuberculosis. Telangana's pilot uses AI to detect oral, breast and cervical cancers.",
+        "<b>Predictive healthcare:</b> uses records, lab reports, wearable data, lifestyle and family history to predict illness early. Under the Ayushman Bharat Digital Mission, health records are being digitised for AI analysis.",
+        "<b>Virtual health assistants:</b> give medical guidance without a clinic visit, remind patients to take medicines, and answer questions through chatbots. Madhya Pradesh's SUMAN SAKHI chatbot gives 24x7 information on maternal care."
+      ]},
+      { h: "Automation", items: [
+        "AI washing machines detect load, fabric type and dirt level, then adjust water, detergent and time. This saves water, energy and effort.",
+        "<b>Smart transportation:</b> AI analyses camera, sensor and GPS data. Delhi and Bengaluru use AI traffic signals that adjust to real-time traffic. AI cameras detect speeding and helmet violations.",
+        "<b>Agriculture:</b> AI helps with automated irrigation, sowing, spraying and harvesting. IMD forecasts help choose sowing and harvest times. The Soil Health Card Scheme gives nutrient reports. Kisan Suvidha analyses crop photos to identify pests.",
+        "<b>Smart homes:</b> smart lights, thermostats, cameras and voice assistants learn preferences. AI can control fans, lights, washing machines and ACs by voice or usage pattern, and alert owners to unusual activity."
+      ]},
+      { h: "Education", items: [
+        "Traditional classrooms have large class sizes, limited individual attention and slow manual assessment.",
+        "<b>Automated assessment:</b> AI grades assignments, quizzes and exams with instant feedback. DIKSHA uses automated systems to track progress.",
+        "<b>Virtual classrooms:</b> real-time online learning from different locations. SWAYAM supports this.",
+        "<b>Personalised learning:</b> lessons adapt to each student's needs and pace."
+      ]},
+      { h: "No-code AI tools", items: [
+        "Anyone can build AI models without programming by uploading labelled examples and training through a graphical interface.",
+        "Platforms: <b>Teachable Machine</b> and <b>Machine Learning for Kids</b>.",
+        "<b>Waste classification activity:</b> collect 20 to 30 photos each of plastic, paper and organic waste, label them, train, then test on new items.",
+        "<b>Voice command activity:</b> create Start, Stop, Help and Background Noise classes, record 15 to 20 samples each, then test with different voices and noise levels."
+      ]}
+    ],
+    points: [
+      "AI helps solve real-world problems in healthcare, education, the environment and daily life.",
+      "In the environment, AI monitors pollution, manages waste, tracks wildlife and improves soil health.",
+      "In healthcare, AI assists with imaging, predicts risks, powers virtual assistants and enables remote monitoring.",
+      "In automation, AI improves transport, agriculture and home management.",
+      "In education, AI enables personalised learning, smart tutoring and virtual classrooms.",
+      "No-code AI tools let anyone build and train AI models without programming knowledge."
+    ],
+    qa: [
+      { q: "How does AI help with plastic pollution?", a: "AI analyses satellite images to locate plastic waste dumps. In 2023, DEST identified 70 dumps in Himachal Pradesh this way, which helped authorities act faster." },
+      { q: "How much plastic waste does India generate, and where does it go?", a: "Nearly 3.5 million tonnes a year, and about half of it enters rivers and oceans." },
+      { q: "How does AI help with air quality?", a: "AI studies pollution data from monitoring stations together with weather data to predict when and where pollution will rise. Authorities can then cancel school outdoor activities, alert hospitals, restrict vehicles or inform farmers about stubble burning." },
+      { q: "What did Ahmedabad launch in 2017?", a: "India's first air quality monitoring and early warning system, launched by the Ministry of Earth Science. It was not AI-based at first." },
+      { q: "What problems do landfills cause?", a: "They release harmful gases, produce unpleasant odours, sometimes catch fire and contaminate groundwater." },
+      { q: "How does Pune's app use AI?", a: "Citizens upload photos of garbage piles. The AI identifies the location and type of waste and automatically creates a work order for the nearest cleaning squad." },
+      { q: "How does AI help wildlife conservation?", a: "AI camera traps identify animal species and send real-time alerts when endangered animals are spotted. AI analysis of satellite images also detects forest cover changes and habitat loss." },
+      { q: "What causes soil degradation?", a: "Unsustainable farming practices, excessive chemical fertiliser use, deforestation and industrial pollution." },
+      { q: "How can AI help farmers protect soil?", a: "AI analyses soil sensor data to recommend fertiliser, irrigation and crop rotation. Apps like CROPIC let farmers share crop photos for health checks, and Bharat Vistaar gives localised advice." },
+      { q: "Why is AI important in Indian healthcare?", a: "India's healthcare serves over 1.3 billion people with limited resources. AI helps with early detection, medical image analysis, decision support, virtual care and remote monitoring." },
+      { q: "How does AI help doctors diagnose disease?", a: "AI analyses X-rays, CT scans and MRIs with high accuracy, detecting early signs of conditions such as tuberculosis in chest X-rays. This matters because India has a shortage of radiologists, especially in rural areas." },
+      { q: "What is predictive healthcare?", a: "Using medical records, lab reports, wearable data, lifestyle and family history to predict illness before it occurs, so that high-risk patients can receive preventive care." },
+      { q: "What are virtual health assistants?", a: "AI tools that give medical guidance without a clinic visit. They remind patients to take medicines, schedule follow-ups and answer common health questions through chatbots." },
+      { q: "How does an AI washing machine work?", a: "It detects the load, fabric type and dirt level, then adjusts the water, detergent and washing time. This saves water and energy." },
+      { q: "How does AI help with smart transportation?", a: "It analyses data from cameras, sensors and GPS. Examples include AI traffic signals that adjust to real-time traffic in Delhi and Bengaluru, AI cameras that detect violations, and navigation apps that avoid jams." },
+      { q: "How does AI help agriculture?", a: "It supports automation of irrigation, sowing, spraying and harvesting. It also provides weather predictions, soil analysis and pest detection through photos." },
+      { q: "Give one example of AI in smart homes.", a: "Voice-controlled appliances, for example switching a light or fan on by voice. AI security cameras that detect unusual activity and send alerts are another example." },
+      { q: "What is the benefit of personalised learning?", a: "Lessons adapt to each student's needs and pace. Students get more help with difficult topics and can move faster through topics they already understand." },
+      { q: "What are no-code AI tools?", a: "Tools that let anyone build AI models by uploading labelled examples and training them through a simple graphical interface, without programming. Examples are Teachable Machine and Machine Learning for Kids." }
+    ],
+    exercises: [
+      { h: "A. Multiple choice", items: [
+        { q: "1. AI helps in environmental protection by:", a: "(d) All of the above" },
+        { q: "2. No-code AI tools allow users to:", a: "(b) Train AI models without coding" },
+        { q: "3. AI can predict future health risks by analysing a patient's:", a: "(b) Medical history and lifestyle habits" },
+        { q: "4. Which problem can AI help solve by analysing satellite images of rivers and oceans?", a: "(b) Plastic pollution" },
+        { q: "5. An example of AI in smart homes is:", a: "(b) Voice-controlled appliances" }
+      ]},
+      { h: "B. Fill in the blanks", items: [
+        { q: "1. AI-powered ______ can answer health questions and remind patients to take medicines.", a: "chatbots (virtual assistants)" },
+        { q: "2. Satellites and sensors help AI detect ______ pollution in oceans and rivers.", a: "plastic" },
+        { q: "3. AI in education can provide ______ learning tailored to each student's needs.", a: "personalised" },
+        { q: "4. Wearable devices allow AI to perform ______ patient monitoring.", a: "remote" },
+        { q: "5. Platforms like ______ allow students to train AI models without coding.", a: "Teachable Machine (or Machine Learning for Kids)" }
+      ]},
+      { h: "C. Short answer questions", items: [
+        { q: "1. Name two ways AI helps reduce environmental problems.", a: "AI analyses satellite images to find plastic dumps and track ocean waste. AI camera traps identify animal species and alert officials. AI air quality forecasting and smart waste sorting also help." },
+        { q: "2. How does AI assist doctors in medical diagnosis?", a: "AI analyses X-rays, CT scans and MRIs, detects early signs of diseases such as tuberculosis, and flags high-risk patients, supporting faster and more accurate diagnosis." },
+        { q: "3. Give one example of AI in smart homes.", a: "A voice-controlled assistant that switches lights, fans or ACs on and off. An AI security camera that alerts the owner to unusual activity also works." },
+        { q: "4. What is the benefit of personalised learning?", a: "Lessons adapt to each student's needs and pace, so students get help where they struggle and can move faster where they are strong." },
+        { q: "5. Explain the role of AI in agriculture.", a: "AI gives weather predictions for sowing and harvesting, analyses soil data to recommend fertiliser and water use, detects pests from crop photos, and supports automation of irrigation and spraying." }
+      ]},
+      { h: "D. Think and apply", items: [
+        { q: "1. Design a no-code AI project to sort waste in your school.", a: "<b>Define the problem:</b> identify plastic, paper and organic waste so bins are sorted correctly. <b>Collect data:</b> take 20 to 30 photos of each type in varied lighting and backgrounds. <b>Upload and label:</b> create Plastic, Paper and Organic classes in Teachable Machine. <b>Train:</b> click Train Model. <b>Test and reflect:</b> test on new items, note mistakes such as shiny plastic confused with paper, add photos and retrain." },
+        { q: "2. How can AI predict and prevent water shortage in your area?", a: "AI can analyse rainfall records, groundwater and reservoir levels, and usage data from meters and sensors to predict shortages early. It can detect pipe leaks and suggest irrigation schedules based on soil moisture and weather forecasts." },
+        { q: "3. Suggest a way AI could help students struggling with mathematics.", a: "An AI tutoring app can identify the topics a student finds hard, such as fractions or powers, give more practice on them, offer step-by-step hints and instant feedback, and show the teacher where extra help is needed." },
+        { q: "4. If you were a farmer, how would you use AI to improve crop production and protect soil health?", a: "I would use soil sensor data and soil health card reports to apply the right amount of fertiliser and water, use weather forecasts to plan sowing and irrigation, use a crop photo app to catch pests early, follow AI crop rotation advice, and return harvest residue to the soil instead of burning it." }
+      ]}
+    ]
+  }
+};
+
+const state = { chapter: "ch1", view: "notes", query: "" };
+const $ = (sel) => document.querySelector(sel);
+
+function matches(text) {
+  return !state.query || text.toLowerCase().includes(state.query);
+}
+
+function stripTags(html) {
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  return d.textContent || "";
+}
+
+function renderNotes(ch) {
+  let html = "";
+  ch.notes.forEach(sec => {
+    const items = sec.items.filter(i => matches(stripTags(i) + " " + sec.h));
+    if (!items.length) return;
+    const tag = sec.ordered ? "ol" : "ul";
+    html += `<section class="card"><h2>${sec.h}</h2><${tag}>${items.map(i => `<li>${i}</li>`).join("")}</${tag}></section>`;
+  });
+  const pts = ch.points.filter(p => matches(p));
+  if (pts.length) {
+    html += `<section class="card points"><h2>Points to remember</h2><ul>${pts.map(p => `<li>${p}</li>`).join("")}</ul></section>`;
+  }
+  return html;
+}
+
+function renderQA(ch) {
+  const list = ch.qa.filter(x => matches(x.q + " " + x.a));
+  if (!list.length) return `<p class="empty">No questions match your search.</p>`;
+  return list.map(x => `
+    <details>
+      <summary>${x.q}</summary>
+      <div class="answer"><p>${x.a}</p></div>
+    </details>`).join("");
+}
+
+function renderExercises(ch) {
+  let html = "";
+  ch.exercises.forEach(sec => {
+    const items = sec.items.filter(i => matches(i.q + " " + i.a + " " + sec.h));
+    if (!items.length) return;
+    html += `<section class="card"><h2>${sec.h}</h2>`;
+    items.forEach(i => {
+      html += `<p class="ex-q">${i.q}</p><div class="ans">${i.a}</div>`;
+    });
+    html += `</section>`;
+  });
+  return html || `<p class="empty">No exercises match your search.</p>`;
+}
+
+function render() {
+  const ch = DATA[state.chapter];
+  $("#chapter-title").textContent = ch.title;
+  $("#chapter-pages").textContent = ch.pages;
+  let body = "";
+  if (state.view === "notes") body = renderNotes(ch) || `<p class="empty">No notes match your search.</p>`;
+  if (state.view === "qa") body = renderQA(ch);
+  if (state.view === "exercises") body = renderExercises(ch);
+  $("#view").innerHTML = body;
+}
+
+document.querySelectorAll("[data-chapter]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.chapter = btn.dataset.chapter;
+    document.querySelectorAll("[data-chapter]").forEach(b => b.setAttribute("aria-selected", b === btn));
+    render();
+  });
+});
+
+document.querySelectorAll("[data-view]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.view = btn.dataset.view;
+    document.querySelectorAll("[data-view]").forEach(b => b.setAttribute("aria-pressed", b === btn));
+    render();
+  });
+});
+
+$("#filter").addEventListener("input", e => {
+  state.query = e.target.value.trim().toLowerCase();
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
